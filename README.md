@@ -9,4 +9,4 @@
 [![Releases](https://img.shields.io/github/release/euan-g19/devops/all.svg?style=flat-square)](https://github.com/euan-g19/devops/releases)
 
 # DevOps
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/euan-g19/FirstProject/A workflow for my Hello World App/develop?style=flat-square)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/euan-g19/FirstProject/FirstProject_workflow/develop?style=flat-square)
