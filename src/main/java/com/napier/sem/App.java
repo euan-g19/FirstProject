@@ -9,7 +9,7 @@ public class App
         // Create new Application
         App a = new App();
 
-        System.out.println("okay!");
+        System.out.println("yippee! 6");
 
         // Connect to database
         a.connect();
@@ -95,11 +95,27 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT emp_no, first_name, last_name "
-                            + "FROM employees "
-                            + "WHERE emp_no = " + ID;
+                    "SELECT employees.emp_no, first_name, last_name, title, salary, departments.dept_no, dept_name "
+                            + "FROM employees, titles, salaries, dept_emp, departments "
+                            + "WHERE employees.emp_no = " + ID +
+                                " AND titles.emp_no = employees.emp_no" +
+                                " AND salaries.emp_no = employees.emp_no" +
+                                " AND departments.dept_no = (SELECT dept_no FROM dept_emp WHERE emp_no = " + ID + ")";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
+
+            //System.out.println("dept_no = " + rset.getString("dept_no"));
+            /*
+            Statement stmt2 = con.createStatement();
+            String managerSelect =
+                    "SELECT first_name, last_name" +
+                            " FROM employees" +
+                            " WHERE emp_no = (SELECT emp_no FROM dept_manager WHERE dept_no = " + rset.getString("dept_no") + ")";
+            ResultSet rset2 = stmt2.executeQuery(managerSelect);
+            */
+            //System.out.println("manager = " + rset2.getString("first_name"));
+
+
             // Return new employee if valid.
             // Check one is returned
             if (rset.next())
@@ -108,6 +124,10 @@ public class App
                 emp.emp_no = rset.getInt("emp_no");
                 emp.first_name = rset.getString("first_name");
                 emp.last_name = rset.getString("last_name");
+                emp.title = rset.getString("title");
+                emp.salary = rset.getInt("salary");
+                emp.dept_name = rset.getString("dept_name");
+                //emp.manager = rset2.getString("first_name") + " " + rset2.getString("last_name");
                 return emp;
             }
             else
@@ -115,7 +135,7 @@ public class App
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());
+            System.out.println(e.toString());
             System.out.println("Failed to get employee details");
             return null;
         }
