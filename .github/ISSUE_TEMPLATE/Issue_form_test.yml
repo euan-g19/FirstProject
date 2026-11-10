@@ -1,0 +1,36 @@
+name: Bug Report template
+description: File a bug report.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+projects: ["euan-g19/FirstProject"]
+assignees:
+  - euan-g19
+type: bug
+body:
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details (Optional)
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe what went wrong.
+      placeholder: What happened was...
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: What was expected?
+      description: Describe what outcome you were expecting instead.
+      placeholder: I was expecting...
+    validations:
+      required: true
